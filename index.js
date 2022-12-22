@@ -39,11 +39,11 @@ cliente.once("ready", () => {  //Con el on siempre esta escuchando peticiones mi
 
 })
 
-// cliente.on("interactionCreate",async inter =>{
-//     if (inter.isCommand() && inter.commandName === "pongo"){
-//         await inter.reply("Ping Pang Pung")
-//     }
-// })
+cliente.on("interactionCreate",async inter =>{   // Esto sirve para crear una interacción, esto quiere decir que en este caso al escribir /pongo y enviarlo directamente contestartá nuestro bot con el mensaje correspondiente en este caso Ping Pang Pung
+    if (inter.isCommand() && inter.commandName === "pongo"){
+        await inter.reply("Ping Pang Pung")
+    }
+})
 
 cliente.on("messageCreate",async (msg) =>{
     console.log(msg.author.username)
@@ -54,12 +54,12 @@ cliente.on("messageCreate",async (msg) =>{
     }
 
     if (msg.content === "pretty"){
-        msg.delete()
-        msg.chanet.send("bonito")
+        msg.delete()  //Esto lo que hace es eliminar el mensaje mas reciente
+        await msg.channel.send(`bonito`) //Esto sirve para enviar un mensaje al grupo
     }
 
     if (msg.content === "ping"){
-        await msg.reply("Pong!")
+        await msg.reply("Pong!")  //Reply sirve para que conteste a la persona que ha escrito el mensaje
         await msg.react("")  //Esto sirve para poner emoticonos
     }
 
@@ -80,13 +80,12 @@ cliente.on("messageCreate",async (msg) =>{
         msg.channel.send("Relajate EH")
     }
 
-    if (msg.content.indexOf("ostia") != -1 || msg.content.indexOf("puta") != -1){
+    let lista = ["ostia","puta"]
+    if (lista.includes(msg.content)){
         msg.channel.send("No digas palabrotas JODER")
     }
 
 })
-
-
 
 cliente.login(DISCORD_TOKEN)
 
