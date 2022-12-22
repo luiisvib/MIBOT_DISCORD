@@ -29,21 +29,33 @@ cliente.once("ready", () => {  //Con el on siempre esta escuchando peticiones mi
     // console.log(testChannel.find( channel =>
     // channel.name === "PRUEBADAW"))  //poner el nombre del servidor
 
-    // cliente.application.commands.set([
-    //     {
-    //         name: "pongo",
-    //         description: "Pong Ping Pung",
-    //         options: []
-    //     }
-    // ])
-    
+    cliente.application.commands.set([
+        {
+            name: "pongo",
+            description: "Pong Ping Pung",
+            options: []
+        },
+    ])
+
 })
+
+// cliente.on("interactionCreate",async inter =>{
+//     if (inter.isCommand() && inter.commandName === "pongo"){
+//         await inter.reply("Ping Pang Pung")
+//     }
+// })
 
 cliente.on("messageCreate",async (msg) =>{
     console.log(msg.author.username)
     console.log(msg.content)
+
     if (msg.author.bot){
         return
+    }
+
+    if (msg.content === "pretty"){
+        msg.delete()
+        msg.chanet.send("bonito")
     }
 
     if (msg.content === "ping"){
@@ -74,11 +86,7 @@ cliente.on("messageCreate",async (msg) =>{
 
 })
 
-// cliente.on("interactionCreate",async inter =>{
-//     if (inter.isCommand() && inter.commandName === "pongo"){
-//         await inter.reply("Ping Pang Pung")
-//     }
-// })
+
 
 cliente.login(DISCORD_TOKEN)
 
